@@ -1,0 +1,44 @@
+name: Taller CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout del código
+        uses: actions/checkout@v4
+
+      - name: 2. Simular una construcción (Build)
+        run: echo "Construyendo el proyecto... (aquí iría 'npm run build', etc.)"
+
+      - name: 3. Simular guardado de artefacto
+        run: |
+          mkdir -p build
+          cp index.html build/
+          echo "Archivos 'construidos' movidos a la carpeta /build"
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout del código
+        uses: actions/checkout@v4
+
+      - name: 2. Simular pruebas (Linting)
+        run: |
+          echo "Ejecutando pruebas..."
+          grep -q "Rock" index.html
+          echo "Prueba de 'Linting' pasada."
+
+      - name: 3. Simular pruebas de unidad (Unit Test)
+        run: |
+          echo "Ejecutando pruebas de unidad..."
+          grep -q "EventFlow" index.html
+          echo "Prueba de 'Copyright' pasada."
+
+      - name: 4. Despliegue simulado
+        run: echo "¡Pruebas exitosas! Listo para desplegar."
